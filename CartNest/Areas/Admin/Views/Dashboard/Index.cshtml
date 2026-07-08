@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+
+    <h2>CartNest Admin Dashboard</h2>
+
+    <hr />
+
+    <h4>Welcome, Admin 🚀</h4>
+
+    <br />
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <a href="/Admin/Category/Index"
+               class="btn btn-primary w-100 mb-3">
+                Manage Categories
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="/Admin/Product/Index"
+               class="btn btn-success w-100 mb-3">
+                Manage Products
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <button id="btnLogout"
+                    class="btn btn-danger w-100 mb-3">
+                Logout
+            </button>
+        </div>
+
+    </div>
+
+    <br />
+
+    <div id="message"></div>
+
+</div>
+
+<script src="~/js/dashboard.js"></script>

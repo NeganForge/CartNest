@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg,#FFF6F9,#FFEAF2);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .checkout-card {
+        max-width: 700px;
+        margin: 60px auto;
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(255,79,139,.15);
+    }
+
+    h2 {
+        color: #FF4F8B;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .checkout-btn {
+        background: #28a745;
+        color: white;
+        border: none;
+        width: 100%;
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: .3s;
+    }
+
+        .checkout-btn:hover {
+            background: #218838;
+            color: white;
+        }
+
+    .back-btn {
+        width: 100%;
+        margin-top: 15px;
+        border: 2px solid #FF4F8B;
+        color: #FF4F8B;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .back-btn:hover {
+            background: #FFE8F0;
+            color: #FF4F8B;
+        }
+
+</style>
+
+<div class="checkout-card">
+
+    <h2>🛒 Checkout</h2>
+
+    <p class="text-center">
+        Review your order and place it.
+    </p>
+
+    <form asp-area="User"
+          asp-controller="Order"
+          asp-action="PlaceOrder"
+          method="post">
+
+        <button type="submit"
+                class="checkout-btn">
+
+            🛍 Place Order
+
+        </button>
+
+    </form>
+
+    <a asp-area="User"
+       asp-controller="Cart"
+       asp-action="Index"
+       class="back-btn">
+
+        ← Back To Cart
+
+    </a>
+
+</div>

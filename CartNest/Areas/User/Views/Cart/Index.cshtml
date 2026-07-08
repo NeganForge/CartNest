@@ -1,0 +1,248 @@
+﻿@model List<CartNest.Models.Cart>
+
+@{
+    ViewData["Title"] = "My Cart";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg,#FFF6F9,#FFEAF2);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .cart-card {
+        background: white;
+        border-radius: 25px;
+        padding: 35px;
+        margin-top: 40px;
+        box-shadow: 0 12px 35px rgba(255,79,139,.15);
+    }
+
+    .cart-title {
+        color: #FF4F8B;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    table {
+        vertical-align: middle;
+    }
+
+    thead {
+        background: #FF4F8B;
+        color: white;
+    }
+
+    tbody tr:hover {
+        background: #FFF4F8;
+    }
+
+    .product-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 12px;
+        border: 2px solid #FFD6E5;
+        object-fit: cover;
+    }
+
+    .total-box {
+        margin-top: 30px;
+        background: #FFF4F8;
+        border-radius: 18px;
+        padding: 25px;
+    }
+
+    .checkout-btn {
+        background: #28a745;
+        color: white;
+        border-radius: 12px;
+        padding: 12px 30px;
+        font-weight: bold;
+        border: none;
+    }
+
+        .checkout-btn:hover {
+            background: #218838;
+            color: white;
+        }
+
+    .continue-btn {
+        border: 2px solid #FF4F8B;
+        color: #FF4F8B;
+        border-radius: 12px;
+        padding: 12px 30px;
+        text-decoration: none;
+    }
+
+        .continue-btn:hover {
+            background: #FFE8F0;
+            color: #FF4F8B;
+        }
+
+</style>
+
+<div class="container">
+
+    <div class="cart-card">
+
+        <h2 class="cart-title">
+            🛒 My Shopping Cart
+        </h2>
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        <table class="table table-bordered align-middle">
+
+            <thead>
+
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @{
+                    decimal grandTotal = 0;
+                }
+
+                @foreach (var item in Model)
+                {
+                    var total = item.Product.Price * item.Quantity;
+                    grandTotal += total;
+
+                    <tr>
+
+                        <td>
+                            <img src="https://via.placeholder.com/70"
+                                 class="product-img" />
+                        </td>
+
+                        <td>
+                            @item.Product.Name
+                        </td>
+
+                        <td>
+                            ₹ @item.Product.Price
+                        </td>
+
+                        <td>
+
+                            <button class="btn btn-outline-danger btn-sm"
+                                    onclick="decreaseQuantity(@item.Id)">
+                                -
+                            </button>
+
+                            <span class="mx-3 fw-bold">
+                                @item.Quantity
+                            </span>
+
+                            <button class="btn btn-outline-success btn-sm"
+                                    onclick="increaseQuantity(@item.Id)">
+                                +
+                            </button>
+
+                        </td>
+
+                        <td>
+                            ₹ @total
+                        </td>
+
+                        <td>
+
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="removeItem(@item.Id)">
+                                🗑️ Remove
+                            </button>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+        <div class="total-box">
+
+            <h4>
+                Grand Total :
+                <span style="color:#FF4F8B;">
+                    ₹ @grandTotal
+                </span>
+            </h4>
+
+            <div class="mt-4 d-flex justify-content-between">
+
+                <a asp-area="User"
+                   asp-controller="User"
+                   asp-action="Welcome"
+                   class="continue-btn">
+
+                    ← Continue Shopping
+
+                </a>
+
+                <a asp-area="User"
+                   asp-controller="Order"
+                   asp-action="Checkout"
+                   class="checkout-btn text-decoration-none">
+
+                    ⚡ Proceed To Checkout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+@section Scripts
+{
+    <script>
+
+        async function increaseQuantity(cartId)
+        {
+            await fetch('/User/Cart/IncreaseQuantity?cartId=' + cartId,
+            {
+                method: 'POST'
+            });
+
+            location.reload();
+        }
+
+        async function decreaseQuantity(cartId)
+        {
+            await fetch('/User/Cart/DecreaseQuantity?cartId=' + cartId,
+            {
+                method: 'POST'
+            });
+
+            location.reload();
+        }
+
+        async function removeItem(cartId)
+        {
+            await fetch('/User/Cart/RemoveItem?cartId=' + cartId,
+            {
+                method: 'POST'
+            });
+
+            location.reload();
+        }
+
+    </script>
+}

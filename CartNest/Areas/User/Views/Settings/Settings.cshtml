@@ -1,0 +1,280 @@
+﻿@{
+    ViewData["Title"] = "Settings";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg,#FFF6F9,#FFEAF2);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .settings-container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: white;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 12px 35px rgba(255,79,139,.18);
+    }
+
+    .page-title {
+        color: #FF4F8B;
+        font-weight: bold;
+        margin-bottom: 35px;
+        text-align: center;
+    }
+
+    .setting-card {
+        background: #FFF8FB;
+        border: 1px solid #FFD6E5;
+        border-radius: 18px;
+        padding: 22px 28px;
+        margin-bottom: 20px;
+        transition: .3s;
+        cursor: pointer;
+    }
+
+        .setting-card:hover {
+            background: #FFE8F0;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(255,79,139,.15);
+        }
+
+    .setting-icon {
+        font-size: 32px;
+        color: #FF4F8B;
+    }
+
+    .setting-title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #222;
+    }
+
+    .setting-description {
+        color: #777;
+        margin-top: 4px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+</style>
+
+<div class="container">
+
+    <div class="settings-container">
+
+        <h2 class="page-title">
+
+            ⚙️ Account Settings
+
+        </h2>
+
+        <!-- Change Password -->
+
+        <a asp-area="User"
+           asp-controller="Otp"
+           asp-action="Index">
+
+            <div class="setting-card">
+
+                <div class="row align-items-center">
+
+                    <div class="col-2 text-center">
+
+                        <div class="setting-icon">
+
+                            🔑
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-10">
+
+                        <div class="setting-title">
+
+                            Change Password
+
+                        </div>
+
+                        <div class="setting-description">
+
+                            Change your CartNest account password securely.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        <!-- Profile -->
+
+        <a href="#">
+
+            <div class="setting-card">
+
+                <div class="row align-items-center">
+
+                    <div class="col-2 text-center">
+
+                        <div class="setting-icon">
+
+                            👤
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-10">
+
+                        <div class="setting-title">
+
+                            Edit Profile
+
+                        </div>
+
+                        <div class="setting-description">
+
+                            Update your personal information.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        <!-- Address -->
+
+        <a href="#">
+
+            <div class="setting-card">
+
+                <div class="row align-items-center">
+
+                    <div class="col-2 text-center">
+
+                        <div class="setting-icon">
+
+                            📍
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-10">
+
+                        <div class="setting-title">
+
+                            Manage Addresses
+
+                        </div>
+
+                        <div class="setting-description">
+
+                            Add, edit or remove delivery addresses.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        <!-- Notifications -->
+
+        <a href="#">
+
+            <div class="setting-card">
+
+                <div class="row align-items-center">
+
+                    <div class="col-2 text-center">
+
+                        <div class="setting-icon">
+
+                            🔔
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-10">
+
+                        <div class="setting-title">
+
+                            Notifications
+
+                        </div>
+
+                        <div class="setting-description">
+
+                            Control email and order notifications.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        <!-- Privacy -->
+
+        <a href="#">
+
+            <div class="setting-card">
+
+                <div class="row align-items-center">
+
+                    <div class="col-2 text-center">
+
+                        <div class="setting-icon">
+
+                            🔒
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-10">
+
+                        <div class="setting-title">
+
+                            Privacy & Security
+
+                        </div>
+
+                        <div class="setting-description">
+
+                            Manage your account security settings.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<CartNest.Models.Entities.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg,#FFF6F9,#FFEAF2);
+    }
+
+    .page-title {
+        color: #FF4F8B;
+        font-weight: 700;
+    }
+
+    .product-card {
+        background: #FFF9FB;
+        border: 1px solid #FFD6E5;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(255,79,139,.10);
+        transition: .3s;
+        overflow: hidden;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255,79,139,.20);
+        }
+
+    .product-image {
+        padding: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .product-image img {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            background: white;
+            border: 2px solid #FFE2EC;
+        }
+
+    .product-title {
+        font-size: 30px;
+        font-weight: bold;
+        color: #222;
+    }
+
+    .product-description {
+        color: #666;
+        margin-top: 10px;
+    }
+
+    .price {
+        font-size: 32px;
+        color: #FF4F8B;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .stock {
+        display: inline-block;
+        margin-top: 10px;
+        background: #EAFBF1;
+        color: #1D9A52;
+        padding: 8px 16px;
+        border-radius: 25px;
+        font-weight: 600;
+    }
+
+    .btn-cartnest {
+        background: #FF4F8B;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 28px;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-cartnest:hover {
+            background: #FF2D73;
+            color: white;
+        }
+
+    .btn-buy {
+        background: #28A745;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 28px;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-buy:hover {
+            background: #218838;
+            color: white;
+        }
+</style>
+
+<div class="container py-5">
+
+    <h2 class="text-center page-title mb-5">
+        🛒 Browse Products
+    </h2>
+
+    @foreach (var product in Model)
+    {
+        <div class="card product-card mb-4">
+
+            <div class="row g-0">
+
+                <!-- Product Image -->
+                <div class="col-md-3 product-image">
+
+                    <img src="https://via.placeholder.com/250x250"
+                         alt="@product.Name">
+
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-md-9">
+
+                    <div class="card-body p-4">
+
+                        <h3 class="product-title">
+                            @product.Name
+                        </h3>
+
+                        <p class="product-description">
+                            @product.Description
+                        </p>
+
+                        <div class="price">
+                            ₹ @product.Price
+                        </div>
+
+                        <div class="stock">
+                            ✔ In Stock : @product.StockQuantity
+                        </div>
+
+                        <div class="mt-4 d-flex gap-3">
+
+                            <!-- View Details Button -->
+                            <a asp-area="User"
+                               asp-controller="Product"
+                               asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="btn btn-cartnest">
+                                View Details
+                            </a>
+
+                            <!-- Buy Now Button -->
+                            <a asp-area="User"
+                               asp-controller="Order"
+                               asp-action="BuyNow"
+                               asp-route-id="@product.Id"
+                               class="btn btn-buy">
+                                ⚡ Buy Now
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>

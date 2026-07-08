@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "CartNest";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #fff7f9, #ffe8ef);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .main-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .landing-card {
+        background: white;
+        width: 900px;
+        border-radius: 25px;
+        padding: 60px;
+        box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+    }
+
+    .logo {
+        font-size: 55px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .pink {
+        color: #ff4f87;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        color: #666;
+        margin-bottom: 40px;
+    }
+
+    .portal-card {
+        background: #fff7fa;
+        border-radius: 20px;
+        padding: 30px;
+        transition: .3s;
+        border: 1px solid #ffe2ec;
+    }
+
+    .portal-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(255,79,135,.2);
+    }
+
+    .btn-pink {
+        background: #ff4f87;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 30px;
+        text-decoration: none;
+    }
+
+    .btn-pink:hover {
+        background: #ff2e72;
+        color: white;
+    }
+
+    .btn-outline-pink {
+        border: 2px solid #ff4f87;
+        color: #ff4f87;
+        border-radius: 12px;
+        padding: 10px 30px;
+        text-decoration: none;
+    }
+
+    .btn-outline-pink:hover {
+        background: #ff4f87;
+        color: white;
+    }
+
+</style>
+
+<div class="main-container">
+
+    <div class="landing-card text-center">
+
+        <h1 class="logo">
+            CART<span class="pink">NEST</span> 🛒
+        </h1>
+
+        <p class="subtitle">
+            Shop Smarter. Live Better.
+        </p>
+
+        <div class="row mt-5">
+
+            <div class="col-md-6 mb-3">
+
+                <div class="portal-card">
+
+                    <h3>👨‍💼 Admin Portal</h3>
+
+                    <p>
+                        Manage Products, Categories,
+                        Orders and Users.
+                    </p>
+
+                    <a asp-area="Admin"
+                       asp-controller="AdminLogin"
+                       asp-action="Login"
+                       class="btn btn-pink">
+                        Enter Admin
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <div class="portal-card">
+
+                    <h3>🛍️ User Portal</h3>
+
+                    <p>
+                        Browse Products and
+                        Start Shopping.
+                    </p>
+
+                    <a asp-area="User"
+                       asp-controller="User"
+                       asp-action="Index"
+                       class="btn btn-outline-pink">
+                        Enter User
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

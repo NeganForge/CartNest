@@ -1,0 +1,206 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+
+    body {
+        background: url('/images/login.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+    }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
+            z-index: -1;
+        }
+
+    .register-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cartnest-logo {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+        .cartnest-logo h1 {
+            color: white;
+            font-size: 70px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 0 3px 15px rgba(0,0,0,.8);
+        }
+
+        .cartnest-logo span {
+            color: #ff4f87;
+        }
+
+        .cartnest-logo p {
+            color: white;
+            font-size: 18px;
+            text-shadow: 0 3px 15px rgba(0,0,0,.8);
+        }
+
+    .register-card {
+        width: 500px;
+        padding: 40px;
+        background: rgba(0,0,0,0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,.3);
+        color: white;
+    }
+
+    .register-title {
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 0 3px 15px rgba(0,0,0,.8);
+    }
+
+    .form-label {
+        color: white;
+        font-weight: 600;
+    }
+
+    .form-control {
+        background: transparent !important;
+        border: none;
+        border-bottom: 2px solid white;
+        border-radius: 0;
+        color: white !important;
+        font-weight: 600;
+    }
+
+        .form-control:focus {
+            background: transparent !important;
+            color: white !important;
+            box-shadow: none;
+            border-bottom: 2px solid white;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255,255,255,.9);
+        }
+
+    .btn-register {
+        background: white;
+        color: black;
+        border: none;
+        border-radius: 30px;
+        padding: 12px;
+        font-weight: bold;
+    }
+
+        .btn-register:hover {
+            background: #f5f5f5;
+        }
+
+    .login-link {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .login-link:hover {
+            color: #ffd6e8;
+        }
+
+</style>
+
+<div class="register-container">
+
+    <div>
+
+        <div class="cartnest-logo">
+
+            <h1>
+                CART<span>NEST</span> 🛒
+            </h1>
+
+            <p>
+                Shop Smarter. Live Better.
+            </p>
+
+        </div>
+
+        <div class="register-card">
+
+            <h2 class="register-title">
+                Register
+            </h2>
+
+            <form asp-action="Register" method="post">
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Name
+                    </label>
+
+                    <input name="Name"
+                           class="form-control"
+                           placeholder="Enter Name" />
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Email
+                    </label>
+
+                    <input name="Email"
+                           class="form-control"
+                           placeholder="Enter Email" />
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Password
+                    </label>
+
+                    <input name="Password"
+                           type="password"
+                           class="form-control"
+                           placeholder="Enter Password" />
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-register w-100 mt-4">
+                    Register
+                </button>
+
+            </form>
+
+            <div class="text-center mt-4">
+
+                Already have an account?
+
+                <a asp-area="User"
+                   asp-controller="User"
+                   asp-action="Index"
+                   class="login-link">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

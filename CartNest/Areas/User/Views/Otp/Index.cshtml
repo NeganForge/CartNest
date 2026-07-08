@@ -1,0 +1,228 @@
+﻿@{
+    ViewData["Title"] = "Verify OTP";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg,#FFF6F9,#FFEAF2);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .otp-card {
+        max-width: 550px;
+        margin: 70px auto;
+        background: white;
+        border-radius: 25px;
+        padding: 35px;
+        box-shadow: 0 12px 35px rgba(255,79,139,.18);
+    }
+
+    .title {
+        text-align: center;
+        color: #FF4F8B;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        border: 2px solid #FFD6E5;
+        border-radius: 12px;
+        height: 50px;
+    }
+
+        .form-control:focus {
+            border-color: #FF4F8B;
+            box-shadow: 0 0 10px rgba(255,79,139,.2);
+        }
+
+    .btn-pink {
+        background: #FF4F8B;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        height: 48px;
+    }
+
+        .btn-pink:hover {
+            background: #FF2D73;
+            color: white;
+        }
+
+    .btn-green {
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        height: 48px;
+    }
+
+        .btn-green:hover {
+            background: #218838;
+            color: white;
+        }
+
+    #result {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+</style>
+
+<div class="container">
+
+    <div class="otp-card">
+
+        <h2 class="title">
+            🔐 Verify OTP
+        </h2>
+
+        <p class="subtitle">
+            Enter your email and OTP to continue.
+        </p>
+
+        <div class="mb-3">
+
+            <label>Email</label>
+
+            <input type="email"
+                   id="email"
+                   class="form-control"
+                   placeholder="Enter Email" />
+
+        </div>
+
+        <button class="btn btn-pink w-100 mb-4"
+                onclick="sendOtp()">
+
+            Send OTP
+
+        </button>
+
+        <div class="mb-3">
+
+            <label>OTP</label>
+
+            <input type="text"
+                   id="otp"
+                   class="form-control"
+                   placeholder="Enter OTP" />
+
+        </div>
+
+        <button class="btn btn-green w-100"
+                onclick="verifyOtp()">
+
+            Verify OTP
+
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+
+        async function sendOtp(){
+
+            const email=document.getElementById("email").value;
+
+            if(email===""){
+
+                document.getElementById("result").innerHTML="Enter Email";
+                return;
+
+            }
+
+            try{
+
+                const response=await fetch('/User/Otp/SendOtp',{
+
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':'application/x-www-form-urlencoded'
+                    },
+
+                    body:new URLSearchParams({
+                        email:email
+                    })
+
+                });
+
+                const message=await response.text();
+
+                document.getElementById("result").innerHTML=message;
+
+            }
+            catch(error){
+
+                document.getElementById("result").innerHTML=error;
+
+            }
+
+        }
+
+        async function verifyOtp(){
+
+            const email=document.getElementById("email").value;
+            const otp=document.getElementById("otp").value;
+
+            if(email==="" || otp===""){
+
+                document.getElementById("result").innerHTML="Enter Email & OTP";
+                return;
+
+            }
+
+            try{
+
+                const response=await fetch('/User/Otp/VerifyOtp',{
+
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':'application/x-www-form-urlencoded'
+                    },
+
+                    body:new URLSearchParams({
+
+                        email:email,
+                        otp:otp
+
+                    })
+
+                });
+
+                const message=await response.text();
+
+                document.getElementById("result").innerHTML=message;
+
+                // If OTP is verified successfully
+                if(message.toLowerCase().includes("success"))
+                {
+                   window.location.href = "/User/Settings/ResetPassword";
+                }
+
+            }
+            catch(error){
+
+                document.getElementById("result").innerHTML=error;
+
+            }
+
+        }
+
+    </script>
+}

@@ -1,0 +1,183 @@
+﻿@model IEnumerable<CartNest.Models.Entities.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<style>
+    body {
+        background: linear-gradient(to right,#fff7f9,#fff0f5);
+    }
+
+    .orders-container {
+        max-width: 1000px;
+        margin: 50px auto;
+    }
+
+    .page-title {
+        font-size: 42px;
+        font-weight: 700;
+        color: #ff4f8b;
+        margin-bottom: 35px;
+    }
+
+    .order-card {
+        background: #fff;
+        border: 1px solid #ffd6e5;
+        border-radius: 22px;
+        padding: 28px;
+        margin-bottom: 25px;
+        transition: .3s;
+        box-shadow: 0 10px 25px rgba(255,105,180,.12);
+    }
+
+        .order-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(255,105,180,.18);
+        }
+
+    .order-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #222;
+    }
+
+    .order-date {
+        color: #777;
+        font-size: 15px;
+    }
+
+    .divider {
+        margin: 18px 0;
+        border-top: 1px solid #ffe2ec;
+    }
+
+    .amount-label {
+        color: #666;
+        font-size: 15px;
+    }
+
+    .amount {
+        color: #ff4f8b;
+        font-size: 34px;
+        font-weight: bold;
+    }
+
+    .btn-details {
+        background: linear-gradient(135deg,#ff6ba6,#ff3f82);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 28px;
+        font-weight: 600;
+        transition: .3s;
+        text-decoration: none;
+    }
+
+        .btn-details:hover {
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255,105,180,.25);
+        }
+
+    .empty-card {
+        background: white;
+        border-radius: 20px;
+        padding: 50px;
+        text-align: center;
+        border: 1px solid #ffd6e5;
+        box-shadow: 0 10px 30px rgba(255,105,180,.12);
+    }
+
+    .shopping-btn {
+        background: #ff4f8b;
+        color: white;
+        border-radius: 30px;
+        padding: 10px 28px;
+        text-decoration: none;
+    }
+
+        .shopping-btn:hover {
+            background: #ff2d74;
+            color: white;
+        }
+</style>
+
+<div class="orders-container">
+
+    <h2 class="page-title">
+        📦 My Orders
+    </h2>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-card">
+
+            <h3>No Orders Yet</h3>
+
+            <p class="text-muted">
+                Looks like you haven't placed any orders.
+            </p>
+
+            <a asp-controller="Product"
+               asp-action="Index"
+               class="shopping-btn">
+                Start Shopping
+            </a>
+
+        </div>
+    }
+    else
+    {
+        @foreach (var order in Model)
+        {
+            <div class="order-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <div class="order-title">
+                            Order #@order.Id
+                        </div>
+
+                        <div class="order-date">
+                            Placed on
+                            @order.OrderDate.ToString("dd MMM yyyy • hh:mm tt")
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <div class="amount-label">
+                            Total Amount
+                        </div>
+
+                        <div class="amount">
+                            ₹@order.TotalAmount.ToString("N2")
+                        </div>
+
+                    </div>
+
+                    <a asp-action="OrderDetails"
+                       asp-route-orderId="@order.Id"
+                       class="btn-details">
+
+                        View Details →
+
+                    </a>
+
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

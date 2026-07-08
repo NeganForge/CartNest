@@ -1,0 +1,220 @@
+﻿@model CartNest.Models.Entities.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg,#FFF6F9,#FFEAF2);
+        font-family: 'Segoe UI',sans-serif;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 12px 35px rgba(255,79,139,.18);
+        margin-top: 50px;
+    }
+
+    .product-image {
+        width: 100%;
+        border-radius: 20px;
+        border: 2px solid #FFD6E5;
+        padding: 20px;
+        background: white;
+        transition: .3s;
+    }
+
+        .product-image:hover {
+            transform: scale(1.03);
+        }
+
+    .product-name {
+        font-size: 38px;
+        font-weight: bold;
+        color: #222;
+    }
+
+    .price {
+        color: #FF4F8B;
+        font-size: 38px;
+        font-weight: bold;
+    }
+
+    .stock {
+        color: #28a745;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .section-title {
+        color: #FF4F8B;
+        font-weight: bold;
+        margin-top: 25px;
+    }
+
+    .description {
+        color: #555;
+        font-size: 17px;
+        line-height: 30px;
+    }
+
+    .btn-cart {
+        background: #FF4F8B;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 35px;
+        font-size: 18px;
+        transition: .3s;
+    }
+
+        .btn-cart:hover {
+            background: #FF2F74;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-buy {
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 35px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-buy:hover {
+            background: #218838;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        border: 2px solid #FF4F8B;
+        color: #FF4F8B;
+        border-radius: 12px;
+        padding: 14px 35px;
+        transition: .3s;
+    }
+
+        .btn-back:hover {
+            background: #FFE8F0;
+            color: #FF4F8B;
+        }
+
+    .product-info {
+        padding-left: 25px;
+    }
+
+</style>
+
+<div class="container">
+
+    <div class="product-card">
+
+        <div class="row align-items-center">
+
+            <!-- Product Image -->
+            <div class="col-lg-5 text-center">
+
+                <img src="https://via.placeholder.com/450x450"
+                     class="product-image"
+                     alt="@Model.Name" />
+
+            </div>
+            <button class="btn nav-btn">
+                🛒 Cart
+                <span id="cart-count">0</span>
+            </button>
+
+            <!-- Product Details -->
+            <div class="col-lg-7 product-info">
+
+                <h1 class="product-name">
+                    @Model.Name
+                </h1>
+
+                <div class="price mt-3">
+                    ₹ @Model.Price
+                </div>
+
+                <div class="stock mt-3">
+                    ✔ @Model.StockQuantity In Stock
+                </div>
+
+                <h4 class="section-title">
+                    Product Description
+                </h4>
+
+                <p class="description">
+                    @Model.Description
+                </p>
+
+                <div class="mt-5 d-flex gap-3 flex-wrap">
+
+                    <!-- Add To Cart -->
+                    <button class="btn btn-cart"
+                            onclick="addToCart(@Model.Id)">
+                        🛒 Add To Cart
+                    </button>
+
+                    <!-- Buy Now -->
+                    <a asp-area="User"
+                       asp-controller="Order"
+                       asp-action="Checkout"
+                       
+                       class="btn btn-buy">
+                        ⚡ Buy Now
+                    </a>
+
+                    <!-- Back -->
+                    <a asp-area="User"
+                       asp-controller="User"
+                       asp-action="Welcome"
+                       class="btn btn-back">
+                        ← Back
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+@section Scripts
+{
+    <script>
+        async function addToCart(productId) {
+
+            const response = await fetch('/User/Cart/AddToCart?productId=' + productId, {
+                method: 'POST'
+            });
+
+            const result = await response.json();
+
+                    if (result.success) {
+            alert(result.message);
+
+            await loadCartCount();
+        }
+        }
+                async function loadCartCount() {
+
+            const response = await fetch('/User/Cart/GetCartCount');
+
+            const result = await response.json();
+
+            document.getElementById("cart-count").innerText = result.count;
+        }
+        loadCartCount();
+    </script>
+}
