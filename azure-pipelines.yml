@@ -33,4 +33,4 @@ steps:
     azureSubscription: 'CartNest-ServiceConnection'
     appType: 'webApp'
     appName: 'CartNest'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)'
