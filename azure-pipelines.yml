@@ -27,3 +27,10 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
+- task: AzureWebApp@1
+  displayName: 'Deploy to Azure App Service'
+  inputs:
+    azureSubscription: 'CartNest-ServiceConnection'
+    appType: 'webApp'
+    appName: 'CartNest'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
