@@ -14,13 +14,13 @@ steps:
     packageType: 'sdk'
     version: '8.0.x'
 
-- script: dotnet restore
+- script: dotnet restore CartNest/CartNest.csproj
   displayName: 'Restore packages'
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build CartNest/CartNest.csproj --configuration $(buildConfiguration)
   displayName: 'Build'
 
-- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish CartNest/CartNest.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'Publish'
 
 - task: PublishBuildArtifacts@1
