@@ -10,5 +10,6 @@ namespace CartNest.Interfaces
 
         Task PlaceOrderAsync(int userId);
         Task<List<Order>> GetOrdersByUserIdAsync(int userId);
+        Task<Order?> GetOrderDetailsAsync(int orderId, int userId);
     }
 }

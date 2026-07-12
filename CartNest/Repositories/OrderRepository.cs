@@ -77,5 +77,12 @@ namespace CartNest.Repositories
                 .OrderByDescending(o => o.OrderDate)
                 .ToListAsync();
         }
+        public async Task<Order?> GetOrderDetailsAsync(int orderId, int userId)
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
+        }
     }
 }

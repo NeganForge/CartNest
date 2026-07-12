@@ -30,6 +30,10 @@ namespace CartNest.Services
         {
             return await _orderRepository.GetOrdersByUserIdAsync(userId);
         }
+        public async Task<Order?> GetOrderDetailsAsync(int orderId, int userId)
+        {
+            return await _orderRepository.GetOrderDetailsAsync(orderId, userId);
+        }
 
     }
 }

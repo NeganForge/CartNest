@@ -27,6 +27,10 @@ namespace CartNest.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(LoginDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
             var user = await _userService.LoginAsync(dto);
 
             if (user == null)

@@ -25,13 +25,27 @@ namespace CartNest.Areas.User.Controllers
             return View();
         }
         public async Task<IActionResult> MyOrders()
-        {
+       {
             int userId = int.Parse(
                 User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
             var orders = await _orderService.GetOrdersByUserIdAsync(userId);
 
             return View(orders);
+        }
+        [HttpGet]
+        public async Task<IActionResult> OrderDetails(int orderId)
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            var order = await _orderService.GetOrderDetailsAsync(orderId, userId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
         }
     }
 }
